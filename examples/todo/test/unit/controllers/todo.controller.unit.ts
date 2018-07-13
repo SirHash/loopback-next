@@ -45,7 +45,7 @@ describe('TodoController', () => {
   let aTodo: Todo;
   let aTodoWithId: Todo;
   let aChangedTodo: Todo;
-  let aTodoList: Todo[];
+  let aListOfTodos: Todo[];
 
   beforeEach(resetRepositories);
 
@@ -88,8 +88,8 @@ describe('TodoController', () => {
 
   describe('findTodos', () => {
     it('returns multiple todos if they exist', async () => {
-      find.resolves(aTodoList);
-      expect(await controller.findTodos()).to.eql(aTodoList);
+      find.resolves(aListOfTodos);
+      expect(await controller.findTodos()).to.eql(aListOfTodos);
       sinon.assert.called(find);
     });
 
@@ -137,7 +137,7 @@ describe('TodoController', () => {
     aTodoWithId = givenTodo({
       id: 1,
     });
-    aTodoList = [
+    aListOfTodos = [
       aTodoWithId,
       givenTodo({
         id: 2,

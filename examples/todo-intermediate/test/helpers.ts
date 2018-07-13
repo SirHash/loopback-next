@@ -40,3 +40,14 @@ export function givenTodo(todo?: Partial<Todo>) {
   );
   return new Todo(data);
 }
+
+export function givenTodoList(todoList?: Partial<TodoList>) {
+  const data = Object.assign(
+    {
+      title: 'List of things',
+      lastModified: '2011-11-11',
+    },
+    todoList,
+  );
+  return new TodoList(data);
+}

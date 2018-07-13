@@ -1,67 +1,59 @@
-import {repository, HasManyRepository} from '@loopback/repository';
+import {Filter, Where, repository} from '@loopback/repository';
+import {post, param, get, put, patch, del, requestBody} from '@loopback/rest';
+import {TodoList} from '../models';
 import {TodoListRepository} from '../repositories';
-import {TodoList, Todo} from '../models';
-import {requestBody, param, post, get, del, put, patch} from '@loopback/rest';
 
 export class TodoListController {
-  protected todoRepo: HasManyRepository<TodoList>;
-
   constructor(
-    @repository(TodoListRepository) protected todoListRepo: TodoListRepository,
+    @repository(TodoListRepository)
+    public todoListRepository: TodoListRepository,
   ) {}
 
   @post('/todo-lists')
-  async createTodoList() {
-    const newTodoList = {createdAt: new Date()};
-    return await this.todoListRepo.create(newTodoList);
+  async create(@requestBody() obj: TodoList): Promise<TodoList> {
+    return await this.todoListRepository.create(obj);
   }
 
-  @get('/todo-lists/{id}')
-  async findTodoListById(@param.path.number('id') id: number) {
-    return await this.todoListRepo.findById(id);
+  @get('/todo-lists/count')
+  async count(@param.query.string('where') where: Where): Promise<number> {
+    return await this.todoListRepository.count(where);
   }
 
   @get('/todo-lists')
-  async findTodos() {
-    return await this.todoListRepo.find();
+  async find(
+    @param.query.string('filter') filter: Filter,
+  ): Promise<TodoList[]> {
+    return await this.todoListRepository.find(filter);
   }
 
-  @put('/todo-lists/{id}')
-  async replaceTodo(
-    @param.path.number('id') id: number,
-    @requestBody() todoList: TodoList,
-  ) {
-    return await this.todoListRepo.replaceById(id, todoList);
+  @patch('/todo-lists')
+  async updateAll(
+    @requestBody() obj: Partial<TodoList>,
+    @param.query.string('where') where: Where,
+  ): Promise<number> {
+    return await this.todoListRepository.updateAll(obj, where);
+  }
+
+  @del('/todo-lists')
+  async deleteAll(@param.query.string('where') where: Where): Promise<number> {
+    return await this.todoListRepository.deleteAll(where);
+  }
+
+  @get('/todo-lists/{id}')
+  async findById(@param.path.number('id') id: number): Promise<TodoList> {
+    return await this.todoListRepository.findById(id);
   }
 
   @patch('/todo-lists/{id}')
-  async updateTodo(
+  async updateById(
     @param.path.number('id') id: number,
-    @requestBody() todoList: TodoList,
-  ) {
-    return await this.todoListRepo.updateById(id, todoList);
+    @requestBody() obj: TodoList,
+  ): Promise<boolean> {
+    return await this.todoListRepository.updateById(id, obj);
   }
 
   @del('/todo-lists/{id}')
-  async deleteTodo(@param.path.number('id') id: number) {
-    return await this.todoListRepo.deleteById(id);
-  }
-
-  @post('/todo-lists/{id}/todos')
-  async createTodoForTodoList(
-    @param.path.number('id') id: number,
-    @requestBody() todo: Todo,
-  ) {
-    return await this.todoListRepo.todos(id).create(todo);
-  }
-
-  @get('/todo-lists/{id}/todos')
-  async findTodosOfTodoList(@param.path.number('id') id: number) {
-    return await this.todoListRepo.todos(id).find();
-  }
-
-  @del('/todo-lists/{id}/todos')
-  async deleteTodosOfTodoList(@param.path.number('id') id: number) {
-    return await this.todoListRepo.todos(id).delete();
+  async deleteById(@param.path.number('id') id: number): Promise<boolean> {
+    return await this.todoListRepository.deleteById(id);
   }
 }

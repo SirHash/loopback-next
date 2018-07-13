@@ -4,7 +4,10 @@ import {Todo} from './todo.model';
 @model()
 export class TodoList extends Entity {
   @property({id: true})
-  id: number;
-  @property() createdAt: Date;
-  @hasMany(Todo) todos: Todo[];
+  id?: number;
+  @property({required: true})
+  title: string;
+  @property({required: true})
+  lastModified: string;
+  @hasMany(Todo) todos?: Todo[];
 }

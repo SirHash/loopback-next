@@ -12,9 +12,9 @@ export class TodoListRepository extends DefaultCrudRepository<
   TodoList,
   typeof TodoList.prototype.id
 > {
-  public todos: HasManyRepositoryFactory<Todo, typeof TodoList.prototype.id>;
+  public todos: HasManyRepositoryFactory<typeof TodoList.prototype.id, Todo>;
   constructor(
-    @inject('datasources.TodoListDb') protected datasource: juggler.DataSource,
+    @inject('datasources.db') protected datasource: juggler.DataSource,
     @repository(TodoRepository) protected todoRepository: TodoRepository,
   ) {
     super(TodoList, datasource);
