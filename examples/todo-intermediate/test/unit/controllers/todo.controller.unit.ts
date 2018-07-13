@@ -7,12 +7,10 @@ import {expect, sinon} from '@loopback/testlab';
 import {TodoController} from '../../../src/controllers';
 import {Todo} from '../../../src/models/index';
 import {TodoRepository} from '../../../src/repositories';
-import {GeocoderService} from '../../../src/services';
-import {aLocation, givenTodo} from '../../helpers';
+import {givenTodo} from '../../helpers';
 
 describe('TodoController', () => {
   let todoRepo: TodoRepository;
-  let geoService: GeocoderService;
 
   /*
   =============================================================================
@@ -45,7 +43,7 @@ describe('TodoController', () => {
   let aTodo: Todo;
   let aTodoWithId: Todo;
   let aChangedTodo: Todo;
-  let aTodoList: Todo[];
+  let aListOfTodos: Todo[];
 
   beforeEach(resetRepositories);
 
@@ -55,24 +53,6 @@ describe('TodoController', () => {
       const result = await controller.createTodo(aTodo);
       expect(result).to.eql(aTodoWithId);
       sinon.assert.calledWith(create, aTodo);
-    });
-
-    it('resolves remindAtAddress to a geocode', async () => {
-      geocode.resolves([aLocation.geopoint]);
-
-      const input = givenTodo({remindAtAddress: aLocation.address});
-
-      const expected = new Todo(input);
-      Object.assign(expected, {
-        remindAtAddress: aLocation.address,
-        remindAtGeo: aLocation.geostring,
-      });
-      create.resolves(expected);
-
-      const result = await controller.createTodo(input);
-
-      expect(result).to.eql(expected);
-      sinon.assert.calledWith(create, input);
     });
   });
 
@@ -88,8 +68,8 @@ describe('TodoController', () => {
 
   describe('findTodos', () => {
     it('returns multiple todos if they exist', async () => {
-      find.resolves(aTodoList);
-      expect(await controller.findTodos()).to.eql(aTodoList);
+      find.resolves(aListOfTodos);
+      expect(await controller.findTodos()).to.eql(aListOfTodos);
       sinon.assert.called(find);
     });
 
@@ -137,7 +117,7 @@ describe('TodoController', () => {
     aTodoWithId = givenTodo({
       id: 1,
     });
-    aTodoList = [
+    aListOfTodos = [
       aTodoWithId,
       givenTodo({
         id: 2,
@@ -157,9 +137,6 @@ describe('TodoController', () => {
     replaceById = todoRepo.replaceById as sinon.SinonStub;
     deleteById = todoRepo.deleteById as sinon.SinonStub;
 
-    geoService = {geocode: sinon.stub()};
-    geocode = geoService.geocode as sinon.SinonStub;
-
-    controller = new TodoController(todoRepo, geoService);
+    controller = new TodoController(todoRepo);
   }
 });

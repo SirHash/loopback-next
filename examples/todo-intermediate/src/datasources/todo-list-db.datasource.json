@@ -1,6 +1,0 @@
-{
-  "name": "TodoListDb",
-  "connector": "memory",
-  "localStorage": "",
-  "file": ""
-}
