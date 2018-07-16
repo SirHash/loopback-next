@@ -57,7 +57,7 @@ describe('Application', () => {
       .and.not.containEql(notMyTodo.toJSON()); // is this assertion necessary?
   });
 
-  it.skip('updates todos for a todoList', async () => {
+  it('updates todos for a todoList', async () => {
     const todoList = await givenTodoListInstance();
     const notMyTodo = await givenTodoInstance({
       title: 'someone else does a thing',
@@ -68,19 +68,19 @@ describe('Application', () => {
         title: 'another thing needs doing',
       }),
     ];
-    const patchLastModified = {lastModified: '2018-01-07'};
+    const patchedIsCompleteTodo = {isComplete: true};
     const response = await client
       .patch(`/todo-lists/${todoList.id}/todos`)
-      .send(patchLastModified)
+      .send(patchedIsCompleteTodo)
       .expect(200);
 
     expect(response.body).to.eql(myTodos.length);
     const updatedTodos = await todoListRepo.todos(todoList.id).find();
     const notUpdatedTodo = await todoRepo.findById(notMyTodo.id);
     for (const todo of updatedTodos) {
-      expect(todo.toJSON()).to.containEql(patchLastModified);
+      expect(todo.toJSON()).to.containEql(patchedIsCompleteTodo);
     }
-    expect(notUpdatedTodo.toJSON()).to.not.containEql(patchLastModified);
+    expect(notUpdatedTodo.toJSON()).to.not.containEql(patchedIsCompleteTodo);
   });
 
   it('deletes todos for a todoList', async () => {

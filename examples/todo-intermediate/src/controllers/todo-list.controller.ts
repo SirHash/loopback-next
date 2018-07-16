@@ -15,13 +15,13 @@ export class TodoListController {
   }
 
   @get('/todo-lists/count')
-  async count(@param.query.string('where') where: Where): Promise<number> {
+  async count(@param.query.string('where') where?: Where): Promise<number> {
     return await this.todoListRepository.count(where);
   }
 
   @get('/todo-lists')
   async find(
-    @param.query.string('filter') filter: Filter,
+    @param.query.string('filter') filter?: Filter,
   ): Promise<TodoList[]> {
     return await this.todoListRepository.find(filter);
   }
@@ -29,13 +29,13 @@ export class TodoListController {
   @patch('/todo-lists')
   async updateAll(
     @requestBody() obj: Partial<TodoList>,
-    @param.query.string('where') where: Where,
+    @param.query.string('where') where?: Where,
   ): Promise<number> {
     return await this.todoListRepository.updateAll(obj, where);
   }
 
   @del('/todo-lists')
-  async deleteAll(@param.query.string('where') where: Where): Promise<number> {
+  async deleteAll(@param.query.string('where') where?: Where): Promise<number> {
     return await this.todoListRepository.deleteAll(where);
   }
 

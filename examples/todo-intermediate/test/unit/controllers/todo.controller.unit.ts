@@ -26,7 +26,6 @@ describe('TodoController', () => {
   let replaceById: sinon.SinonStub;
   let updateById: sinon.SinonStub;
   let deleteById: sinon.SinonStub;
-  let geocode: sinon.SinonStub;
 
   /*
   =============================================================================

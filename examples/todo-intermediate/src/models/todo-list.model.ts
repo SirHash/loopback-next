@@ -7,7 +7,6 @@ export class TodoList extends Entity {
   id?: number;
   @property({required: true})
   title: string;
-  @property({required: true})
-  lastModified: string;
+  @property() color: string;
   @hasMany(Todo) todos?: Todo[];
 }
