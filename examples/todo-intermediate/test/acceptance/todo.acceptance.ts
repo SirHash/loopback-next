@@ -22,7 +22,6 @@ describe('Application', () => {
     client = createClientForHandler(app.requestHandler);
   });
 
-  // TODO: refactor into multiple files
   beforeEach(async () => {
     await todoRepo.deleteAll();
   });

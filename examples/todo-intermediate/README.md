@@ -1,13 +1,13 @@
-# @loopback/example-todo
+# @loopback/example-todo-list
 
-This is the basic tutorial for getting started with Loopback 4!
+This is an extended tutorial from `@loopback/example-todo`.
 
 ## Overview
 
-This tutorial demonstrates how to create a basic API for a todo list using
-LoopBack 4.
+This tutorial demonstrates how to create a set of APIs for models that are
+related to another.
 
-![todo-tutorial-overview](./imgs/todo-overview.png)
+![todo-tutorial-overview](REVISED VERSION OF THE DIAGRAM)
 
 ## Setup
 
@@ -27,23 +27,30 @@ Lastly, you'll need to install the LoopBack 4 CLI toolkit:
 npm i -g @loopback/cli
 ```
 
+If you're not following from the
+[todo tutorial](http://loopback.io/doc/en/lb4/todo-tutorial.html), you can use
+the LoopBack 4 CLI tool to catch up to where this tutorial will continue from:
+
+```sh
+lb4 example todo
+```
+
+It should be noted that this tutorial does not assume the
+[optional geo-coding step](https://loopback.io/doc/en/lb4/todo-tutorial-geocoding-service.html)
+has been completed. Whether the step has been completed or not, the content and
+the steps listed in this tutorial remains the same.
+
 ## Tutorial
 
 To follow this tutorial, begin with the
-[Create your app scaffolding](http://loopback.io/doc/en/lb4/todo-tutorial-scaffolding.html)
+[Add TodoList model](http://loopback.io/doc/en/lb4/todo-list-tutorial-model.html)
 section.
 
 ### Steps
 
-1.  [Create your app scaffolding](http://loopback.io/doc/en/lb4/todo-tutorial-scaffolding.html)
-2.  [Adding legacy juggler](http://loopback.io/doc/en/lb4/todo-tutorial-juggler.html)
-3.  [Add your Todo model](http://loopback.io/doc/en/lb4/todo-tutorial-model.html)
-4.  [Add a datasource](http://loopback.io/doc/en/lb4/todo-tutorial-datasource.html)
-5.  [Add a repository](http://loopback.io/doc/en/lb4/todo-tutorial-repository.html)
-6.  [Add a controller](http://loopback.io/doc/en/lb4/todo-tutorial-controller.html)
-7.  [Putting it all together](http://loopback.io/doc/en/lb4/todo-tutorial-putting-it-together.html)
-8.  Bonus:
-    [Integrate with a geo-coding service](http://loopback.io/doc/en/lb4/todo-tutorial-geocoder-service.html)
+1.  [Add TodoList Model](http://loopback.io/doc/en/lb4/todo-list-tutorial-model.html)
+2.  [Add TodoList Repository](http://loopback.io/doc/en/lb4/todo-list-tutorial-repository.html)
+3.  [Add TodoList and TodoList's Todo Controller](http://loopback.io/doc/en/lb4/todo-list-tutorial-controller.html)
 
 ## Try it out
 

@@ -1,7 +1,7 @@
 import {repository, Filter, Where} from '@loopback/repository';
-import {post, get, del, patch, param, requestBody} from '@loopback/rest';
-import {Todo} from '../models';
 import {TodoListRepository} from '../repositories';
+import {post, get, patch, del, param, requestBody} from '@loopback/rest';
+import {Todo} from '../models';
 
 export class TodoListTodoController {
   constructor(

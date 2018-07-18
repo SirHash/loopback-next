@@ -1,5 +1,5 @@
 import {Filter, Where, repository} from '@loopback/repository';
-import {post, param, get, put, patch, del, requestBody} from '@loopback/rest';
+import {post, param, get, patch, del, requestBody} from '@loopback/rest';
 import {TodoList} from '../models';
 import {TodoListRepository} from '../repositories';
 
